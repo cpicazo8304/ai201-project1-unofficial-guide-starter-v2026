@@ -25,7 +25,7 @@ contains the answer.
 **Why this target:**
 <!-- e.g. "One of my questions is about a topic only two documents mention, so
      I expect that one to be hard." -->
-
+The test questions are mainly questions that are made from looking at additional information added in the replies that the original question didn't ask. I want to see if the model can chunk good and look at the replies.
 ---
 
 ## 2. Every answer names a source
@@ -35,7 +35,7 @@ Every answer the system produces names at least one source document.
 **Why this target:**
 <!-- Why all five and not four? What about your setup makes that achievable —
      or what would have to go wrong for it not to be? -->
-
+This goes back to our grounding requirement. We want to be able to get evidence from the source documents rather than general knowledge. It shows how strong the RAG model and could potentially prevent hallucinations.
 ---
 
 ## 3. The relevance gate stops out-of-corpus questions
@@ -52,7 +52,7 @@ in at least 4 of 5 tries.
 **Why this target:**
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
-
+Again, the model should be grounded to the source documents. It shouldn't use general knowledge to answer questions. If it does, then the RAG model is not working.
 ---
 
 ## 4. Something about your chunks
@@ -69,11 +69,11 @@ in at least 4 of 5 tries.
        - "No chunk is shorter than 200 characters, since anything below that
           in my corpus turned out to be a heading with no content under it." -->
 
-
+At least 4 of 5 sampled chunks should contain complete replies or complete related thoughts, without cutting a sentence in half or separating a reply’s useful detail from its explanation.
 
 **Why this target:**
 
-
+The advice-thread documents are short, but their useful information is spread across several replies. Keeping replies or related thoughts together should make each retrieved chunk easier for the model to understand and cite accurately.
 
 ---
 
@@ -87,10 +87,11 @@ in at least 4 of 5 tries.
      present — anything, as long as it names a number or an observable
      outcome. -->
 
-
+For at least 4 of 5 in-corpus questions, the answer should include a specific detail from a reply and accurately mention disagreement or differences in advice when the thread contains them.
 
 **Why this target:**
 
+The advice-thread corpus contains several replies with different opinions or extra details, so an answer should consider every perspective.
 
 
 ---
