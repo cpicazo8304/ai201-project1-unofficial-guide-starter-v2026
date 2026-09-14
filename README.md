@@ -28,10 +28,12 @@
 
      Milestone 5. -->
 
+I picked the advice threads corpus that answers questions from different perspectives and replies that go against each other. 
+
 ## Chunking Strategy
 
-**Chunk size:**
-**Overlap:**
+**Chunk size:** 400 characters
+**Overlap:** 60 characters
 
 <!-- What about YOUR documents made you pick these numbers? Short posts and
      long sectioned guides don't want the same chunking, and "800 seemed
@@ -42,6 +44,8 @@
      more than pretending you got it right first time.
 
      Milestone 3. -->
+
+I chose 400 characters because the threads contain several replies that sometimes disagree. Keeping replies in small chunks should help retrieval distinuish between different perspectives instead of combining conflicting advice. I used enough overlap to preserve context when a reply crosses a chunk boundary.
 
 ## Sample Chunks
 
