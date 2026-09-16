@@ -22,65 +22,51 @@
 
 ## What This Does
 
-<!-- Three or four sentences. Which corpus you picked, and the kinds of
-     questions your system answers. Write it for someone who has never seen
-     this repo.
-
-     Milestone 5. -->
-
 I picked the advice threads corpus that answers questions from different perspectives and replies that go against each other. 
 
 ## Chunking Strategy
 
-**Chunk size:** 400 characters
+**Chunk size:** 300 characters
 **Overlap:** 60 characters
 
-<!-- What about YOUR documents made you pick these numbers? Short posts and
-     long sectioned guides don't want the same chunking, and "800 seemed
-     reasonable" earns nothing. Point at something you noticed when you read
-     the documents in Milestone 1.
-
-     If you changed your mind partway through, say so and say why. That's worth
-     more than pretending you got it right first time.
-
-     Milestone 3. -->
-
-I chose 400 characters because the threads contain several replies that sometimes disagree. Keeping replies in small chunks should help retrieval distinuish between different perspectives instead of combining conflicting advice. I used enough overlap to preserve context when a reply crosses a chunk boundary.
+I chose 300 characters because the threads contain several replies that sometimes disagree. Keeping replies in small chunks should help retrieval distinuish between different perspectives instead of combining conflicting advice. I used enough overlap to preserve context when a reply crosses a chunk boundary.
 
 ## Sample Chunks
 
-<!-- Five chunks, pasted as text. Label each one and name the file it came from
-     AND the function that produced it — the grader checks your code against
-     what you claim here.
+======================================================================
+Chunk 1  |  source: thread_bike_commute.txt#reply_1#0  |  produced by: chunker.py::split_documents
+======================================================================
+THREAD: Is a bike worth it for a 20 minute walk commute?
 
-     `python app.py chunks -n 5` prints all three for you. Copy them straight
-     across.
+Yeah. Cuts an 18 minute walk to about 6. The thing nobody mentions is storage — covered bike parking exists at three buildings and is full by 9am at all three.
 
-     Milestone 3. -->
+======================================================================
+Chunk 2  |  source: thread_first_gen.txt#reply_2#1  |  produced by: chunker.py::split_documents
+======================================================================
+THREAD: Anything specific for first-generation students?
 
-**Chunk 1** — source: `` — produced by: ``
+The thing I'd say: the unwritten rules are the hard part, not the coursework. Ask about the unwritten rules explicitly. People are happy to explain them and nobody volunteers them.
 
-```
-```
+======================================================================
+Chunk 3  |  source: thread_laptop_specs.txt#reply_3#2  |  produced by: chunker.py::split_documents
+======================================================================
+THREAD: How much laptop do I actually need for CS courses?
 
-**Chunk 2** — source: `` — produced by: ``
+I did two years on an 8GB machine and it was fine until the last project, at which point it very much wasn't. 16 is the answer.
 
-```
-```
+======================================================================
+Chunk 4  |  source: thread_parking.txt#reply_2#1  |  produced by: chunker.py::split_documents
+======================================================================
+THREAD: Worth getting a parking permit?
 
-**Chunk 3** — source: `` — produced by: ``
+Street parking on Verrill is legal and free and unmarked, which is why half the upper years do it.
 
-```
-```
+======================================================================
+Chunk 5  |  source: thread_sleep_schedule.txt#reply_2#1  |  produced by: chunker.py::split_documents
+======================================================================
+THREAD: Everyone says fix your sleep. Does it actually matter?
 
-**Chunk 4** — source: `` — produced by: ``
-
-```
-```
-
-**Chunk 5** — source: `` — produced by: ``
-
-```
+The library being open until 2am is a trap. It's a resource, not a schedule.
 ```
 
 ## Sample Answer

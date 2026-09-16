@@ -26,6 +26,8 @@ from dataclasses import dataclass
 
 import config
 from ingest import Document
+import re
+
 
 
 @dataclass
@@ -36,6 +38,7 @@ class Chunk:
     source: str        # which file it came from
     index: int         # which chunk within that file, starting at 0
     produced_by: str   # the function that made it — cite this in your README
+    votes: int | None = None  # optional, for advice_threads corpus
 
     @property
     def label(self) -> str:
@@ -97,7 +100,56 @@ def split_documents(documents: list[Document]) -> list[Chunk]:
       - Would splitting on paragraph breaks keep more thoughts intact than
         splitting on a character count?
     """
-    return fallback_split(documents)
+    # Strategy (using advice_threads corpus):
+    # Split on reply boundary and add the question of the thread at start
+    # for each reply. This way, the context of the question is 
+    # preserved for each reply.
+    pattern = r'-{2,}\s*reply\s+(\d+)\s*\((\d+)\s*votes?\)\s*-{2,}'
+    chunks: list[Chunk] = []
+
+    for doc in documents:
+        # Split the document into question and replies
+        parts = re.split(pattern, doc.text)
+
+        if len(parts) > 1:
+            question = parts[0].strip()
+            
+            # Create new documents for each reply with the question prepended
+            for i in range(1, len(parts), 3):
+                # get the reply number, votes, and text
+                reply_number = parts[i]
+                votes = parts[i + 1]
+                try:
+                    votes = int(votes)
+                except ValueError:
+                    votes = None
+
+                reply_text = parts[i + 2]
+
+                # Create a new chunk with the question and reply text
+                new_doc_text = f"{question}\n\n{reply_text.strip()}"
+                new_doc_source = f"{doc.source}#reply_{reply_number}"
+
+                chunks.append(
+                    Chunk(
+                        text=new_doc_text,
+                        source=new_doc_source,
+                        index=i // 3,   # 3 items per reply: number, votes, text
+                        produced_by="chunker.py::split_documents",
+                        votes=votes,
+                    )
+                )
+        else:
+            # doesn't match expected format — don't lose it silently
+            chunks.append(Chunk(
+                text=doc.text.strip(),
+                source=doc.source,
+                index=0,
+                produced_by="chunker.py::split_documents",
+                votes=None,
+            ))
+
+    return chunks
 
 
 def describe(chunks: list[Chunk]) -> str:
