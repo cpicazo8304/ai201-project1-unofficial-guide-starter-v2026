@@ -21,14 +21,13 @@ Swap them for your own if you like. Keep five of them either way: criterion 3
 names a target of "4 of 5", and four of three is not a thing.
 """
 
-QUESTIONS = [
-    # {"question": "...", "expects": "..."},
-    {"question": "How wrong is the laundry machine availability app?", "expects": "The app is wrong about half of the time, and it may show a machine as free before someone unloads it."},
+QUESTIONS = [       
+    {"question": "Is a bike worth it for a 20-minute walk commute, including the downsides?", "expects": "A bike makes the commute faster, but winter ice and road salt can make it impractical."},
     {"question": "Are office hours usually empty?", "expects": "Office hours are often empty, but students should still go to them."},
-    {"question": "When do room changes happen?", "expects": "Room changes happen at the beginning of each semester and occasionally during the semester."},
-    {"question": "Do printing quotas roll over to the next semester?", "expects": "Printing quotas do not roll over to the next semester."},
+    {"question": "What are the different considerations when changing majors?", "expects": "Changing majors depends on the direction; moving into a science later can add a semester."},
+    {"question": "Which meal plan tier makes sense for students with and without a kitchen?", "expects": "Students with kitchens can choose a lower tier, while others should get the middle tier."},
     {"question": "What should students applying to graduate programs know before choosing pass/fail?", "expects": "Some programs require a letter grade for prerequisites, and a P may not satisfy that requirement."},
-]
+]   
 
 # Questions from a different world entirely. Your gate should refuse all five.
 #
