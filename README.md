@@ -189,68 +189,52 @@ For students whose building has a kitchen (such as Fenwick), people go down a ti
 
 ## Diagnoses
 
-<!-- For each miss: which stage caused it, and how. The stage alone isn't
-     enough — you need the mechanism.
+**Criterion 1**: The answer for the bike commute question expected information on ice and road slat affecting bike commute, but none of the answers included this. One of the replies in the bike commute thread includes this information. So, either the cutoff is too low or the top-k removes meaningful chunks. For the office hours question, doesn't seem to be missing anything. 
 
-     Not a diagnosis: "Question 3 didn't work."
-     A diagnosis:     "Question 3 asks about laundry costs. The answer is in
-                       one sentence that got split across two chunks, so
-                       neither chunk on its own contains it."
-
-     The five stages: loading → chunking → embedding → retrieval → generation.
-
-     Look for a pattern. If three misses all ask about numbers, that's one
-     problem, not three.
-
-     Missed nothing? Say so, then say honestly whether your targets were set
-     low, and which one you'd tighten and to what.
-
-     Milestone 3. -->
+**Criterion 5:** The bike commute question doesn't have the contrasting information on the perspective of having a bike during the winter months (snow and road salts can affect the bike). This has the same problem as criterion 1, so the problem lies with top-k or the cutoff.
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** Changed top-k from 3 to 5.
 
 **Why I picked it:**
 
-<!-- Connect it to a specific diagnosis above in one sentence. If you can't,
-     you picked a fix because it sounded impressive. -->
+Given the diagnoses, I mention that certain replies/information were not included even though replies in the threads include the information. So, I wanted to see if it was because the top-k was too narrow and didn't took away meaningful chunks. I could move the relevance cutoff up higher, but this is less likely because higher distances points to chunks less relevant to the query.
 
 ### Run Log — After
 
-<!-- Same format, same five criteria, three runs each.
-     `python run_eval.py --label after` -->
-
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. Complete replies in chunks. | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 5. Includes information from two sides (if possible) | 3 of 5 | 3/5 | 3/5 | 3/5 | MET |
+
+Before, the bike commute question had this answer:
+
+```
+Yes, a bike is worth it as it cuts an 18-minute walk down to about 6 minutes, but a downside is that covered bike parking fills up by 9 am at all three buildings that offer it. 
+
+Source: thread_bike_commute.txt#reply_1
+```
+
+After the top-k change, the bike commute question had this answer:
+
+```
+Yes, a bike can cut an 18-minute walk down to about 6 minutes, but there are several downsides to consider (thread_bike_commute.txt#reply_1). Storage can be an issue because covered bike parking is full by 9 AM (thread_bike_commute.txt#reply_1), salt used on paths between November and March destroys drivetrains in a single season (thread_bike_commute.txt#reply_2), and bikes run the risk of being taken, though free campus registration can help recover them (thread_bike_commute.txt#reply_4). 
+
+Sources: thread_bike_commute.txt#reply_1, thread_bike_commute.txt#reply_2, and thread_bike_commute.txt#reply_4
+```
 
 **Did it help?**
 
-<!-- Say plainly whether it did, and how you know. If it made things worse,
-     say that — a change that backfired, honestly reported, earns full credit
-     and is more interesting than one that worked. What matters is that you can
-     tell.
-
-     Milestone 4. -->
+The change did help by including more information of all the perspectives to a question. It led to a more structured answer that grabbed all important information in the corpus (with sources attached).
 
 ## What's Still Broken
 
-<!-- For each criterion still missed after your fix: what you'd do about it,
-     and why you stopped where you did.
-
-     "I ran out of time" is fine if it's true. Pretending nothing is left is
-     not.
-
-     Milestone 5. -->
+Nothing is broken!
 
 ## What I'd Do Differently
 
-<!-- Knowing what you know now — which of your five criteria would you write
-     differently, and why?
-
-     Milestone 5. -->
+I wouldn't change my criterion but I would have definitely created better questions with better expectations. I honestly think that doing the criterion first then the questions would have helped since it would the questions help test out the criterion.

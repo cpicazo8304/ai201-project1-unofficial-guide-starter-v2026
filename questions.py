@@ -23,7 +23,7 @@ names a target of "4 of 5", and four of three is not a thing.
 
 QUESTIONS = [       
     {"question": "Is a bike worth it for a 20-minute walk commute, including the downsides?", "expects": "A bike makes the commute faster, but winter ice and road salt can make it impractical."},
-    {"question": "Are office hours usually empty?", "expects": "Office hours are often empty, but students should still go to them."},
+    {"question": "Are office hours usually empty?", "expects": "Yes, office hours are often empty."},
     {"question": "What are the different considerations when changing majors?", "expects": "Changing majors depends on the direction; moving into a science later can add a semester."},
     {"question": "Which meal plan tier makes sense for students with and without a kitchen?", "expects": "Students with kitchens can choose a lower tier, while others should get the middle tier."},
     {"question": "What should students applying to graduate programs know before choosing pass/fail?", "expects": "Some programs require a letter grade for prerequisites, and a P may not satisfy that requirement."},
